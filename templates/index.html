@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <h1>Welcome to Flask Intro</h1>
+  <p>
+    <a href="/logout">Clicker here to log out</a>
+  </p>
+  <br><br>
+  <h3>Posts</h3>
+  {% for post in posts %}
+   <strong>Title: </strong> {{ post.title }} <br>
+   <strong>Description: </strong> {{ post.description }} <br>
+   <br>
+  {% endfor %}
+
+
+{% endblock %}
