@@ -10,7 +10,7 @@ app = Flask(__name__)
 #config file
 import os
 app.config.from_object(os.environ['APP_SETTINGS'])
-print os.environ['APP_SETTINGS']
+
 
 #Create Sqlachemy object
 db = SQLAlchemy(app)
@@ -28,6 +28,7 @@ def login_required(f):
             flash('you must log in first!')
             return redirect(url_for('login'))
     return wrap
+
 
 @app.route('/')
 @login_required
@@ -66,9 +67,6 @@ def logout():
   flash("You were just logged out")
   return redirect(url_for("welcome"))
 
-
-# def connect_db():
-#     return sqlite3.connect(app.database)
 
 
 
