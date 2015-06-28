@@ -1,11 +1,22 @@
-from flask import Flask, render_template, url_for, redirect, request, session, flash, g
+from flask import Flask, render_template, url_for, redirect, request, \
+ session, flash, g
 from functools import wraps
-import sqlite3
+from flask.ext.sqlalchemy import SQLAlchemy
+# import sqlite3
 
 app = Flask(__name__)
-app.database = "sample.db"
-app.secret_key = "Secrety Key"
 
+
+#config file
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])
+print os.environ['APP_SETTINGS']
+
+#Create Sqlachemy object
+db = SQLAlchemy(app)
+
+#import Models after you make the db object
+from models import *
 
 #def wrap function required to login
 def login_required(f):
@@ -21,10 +32,10 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    g.db = connect_db()
-    cur = g.db.execute('select * from posts')
-    posts = [dict(title = row[0], description = row[1]) for row in cur.fetchall()]
-    g.db.close()
+    try:
+        posts = db.session.query(BlogPosts).all()
+    except sqlite3.OperationalError:
+        flash("You have no database!")
     return render_template("index.html", posts = posts)
 
 
@@ -56,11 +67,11 @@ def logout():
   return redirect(url_for("welcome"))
 
 
-def connect_db():
-    return sqlite3.connect(app.database)
+# def connect_db():
+#     return sqlite3.connect(app.database)
 
 
 
 
 if(__name__) == '__main__':
-    app.run(debug=True)
+    app.run()

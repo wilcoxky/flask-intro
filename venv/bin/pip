@@ -1,4 +1,4 @@
-#!/Users/kylewilcox/Documents/WebApps/microblog/flask-intro/venv/bin/python
+#!/Users/kylewilcox/Documents/WebApps/flask-intro/venv/bin/python
 
 # -*- coding: utf-8 -*-
 import re
