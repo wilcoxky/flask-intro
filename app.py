@@ -33,10 +33,7 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    try:
-        posts = db.session.query(BlogPosts).all()
-    except sqlite3.OperationalError:
-        flash("You have no database!")
+    posts = db.session.query(BlogPosts).all()
     return render_template("index.html", posts = posts)
 
 

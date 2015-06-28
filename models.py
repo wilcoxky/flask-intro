@@ -1,5 +1,8 @@
 from app import db
 
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+
 
 class BlogPosts(db.Model):
 
@@ -8,12 +11,35 @@ class BlogPosts(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String, nullable = False)
     description = db.Column(db.String, nullable = False)
+    author_id = db.Column(db.Integer, ForeignKey("users.id"))
 
-    def __init__(self, title, description):
+    def __init__(self, title, description, author_id):
         self.title = title
         self.description = description
+        self.author_id = author_id
 
 
     def __repr__(self):
         return ('<title {}, description {}'.format(self.title, self.description))
+        # return (self.title + ": " + description)
+
+
+class User(db.Model):
+
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String, nullable = False)
+    email = db.Column(db.String, nullable = False)
+    password = db.Column(db.String, nullable = False)
+    posts = relationship("BlogPosts", backref="author")
+
+    def __init__(self, name, email, password):
+        self.name = name
+        self.email = email
+        self.password = password
+
+
+    def __repr__(self):
+        return ('<name {}, email {}, password {}'.format(self.name, self.email, self.password))
         # return (self.title + ": " + description)

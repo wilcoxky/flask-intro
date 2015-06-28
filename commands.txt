@@ -1,0 +1,12 @@
+Good to know if you get sutck Kyle
+
+
+export [NAME_OF_VAR]='The/stuff/you/set/it/to'
+
+heroku run etc...
+
+heroku config:set APP_SETTINGS='' remote heroku
+
+export DATABASE_URL='postgresql://localhost/[name_of_database]'
+
+export DATABASE_URL='postgresql://localhost/flask-intro'
