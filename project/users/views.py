@@ -2,12 +2,12 @@
 ##### imports ###########
 #########################
 
-from flask import render_template, url_for, redirect, request, \
- session, flash, Blueprint
+from flask import flash, redirect, render_template, request, \
+    url_for, Blueprint, session   # pragma: no cover
+
+from project import db   # pragma: no cover
+from project.models import User, bcrypt   # pragma: no cover
 from functools import wraps
-from flask.ext.bcrypt import Bcrypt
-from app import app
-bcrypt = Bcrypt(app)
 
 
 ################
@@ -24,7 +24,7 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             flash('you must log in first!')
-            return redirect(url_for('login'))
+            return redirect(url_for('users.login'))
     return wrap
 
 ################
@@ -40,7 +40,7 @@ def login():
     else:
       session['logged_in'] = True
       flash("You were just logged in")
-      return redirect(url_for('home'))
+      return redirect(url_for('home.home'))
   return render_template('login.html', error=error)
 
 
@@ -49,4 +49,4 @@ def login():
 def logout():
   session.pop('logged_in', None)
   flash("You were just logged out")
-  return redirect(url_for("welcome"))
+  return redirect(url_for("home.welcome"))

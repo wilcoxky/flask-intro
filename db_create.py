@@ -1,5 +1,5 @@
-from app import db
-from models import BlogPosts
+from project import db
+from project.models import BlogPosts
 
 #Create DB and tables
 

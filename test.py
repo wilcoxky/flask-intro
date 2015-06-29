@@ -1,4 +1,4 @@
-from app import app
+from project import app
 import unittest
 
 class FlaskTestCase(unittest.TestCase):
@@ -18,7 +18,7 @@ class FlaskTestCase(unittest.TestCase):
     #Ensure login benhave on correct input
     def test_correct_login(self):
         tester = app.test_client(self)
-        response = tester.post('/login', data = dict(username = "admin", password = "admin")
+        response = tester.post('/login', data = dict(username="admin", password="admin")
         ,follow_redirects = True)
         self.assertTrue(b'You were just logged in' in response.data)
 
