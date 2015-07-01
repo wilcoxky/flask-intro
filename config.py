@@ -1,13 +1,25 @@
-# default config
 import os
 
+
+# default config
 class BaseConfig(object):
     DEBUG = False
-    SECRET_KEY = '\x98m!Z\x18-\x8a\xb5N(\xcd\xed\xa8K\xbb\xaf\xbd0\xe7\xc9\x1b\xf3&\x92'
+    # shortened for readability
+    SECRET_KEY = '\xbf\xb0\x11\xb1\xcd\xf9\xba\x8bp\x0c...'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+
+class TestConfig(BaseConfig):
+    DEBUG = False
+    SECRET_KEY = 'Test Config key'
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
+
 
 
 class ProductionConfig(BaseConfig):
