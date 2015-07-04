@@ -45,3 +45,18 @@ class User(db.Model):
     def __repr__(self):
         return ('<name {}, email {}, password {}'.format(self.name, self.email, self.password))
         # return (self.title + ": " + description)
+
+    def is_authenticated(self):
+        return True
+
+
+    def is_active(self):
+        return True
+
+
+    def get_id(self):
+        return unicode(self.id)
+
+
+    def is_anonymous(self):
+        return False
